@@ -1,6 +1,7 @@
 /* DAVID BRITO 30521360   */
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 
@@ -84,7 +85,7 @@ int main(){
     string msg;
     inicializarMemoria();
 
-    cout << "dir" << "   " << "A/F" << "   " << "B0" << "   " << "B1" << "   " << "B2" << "   " << "B3" << "\n";
+    cout << setw(5) << "dir" << setw(5) << "A/F" << setw(5) << "B0" << setw(5) << "B1" << setw(5) << "B2" << setw(5) << "B3" << "\n";
     while(cin >> direccion){
 
         estado = verificarMemoria(direccion, &secuencia);
@@ -94,7 +95,7 @@ int main(){
         }else{
             msg = "A";
         }
-        cout << direccion << "   " << msg << "   " << memoria[0][0] << "   " << memoria[0][1] << "   " << memoria[0][2] << "   " << memoria[0][3] << "\n";
+        cout << setw(5) << direccion << setw(5) << msg << setw(5) << memoria[0][0] << setw(5) << memoria[0][1] << setw(5) << memoria[0][2] << setw(5) << memoria[0][3] << "\n";
     }
 
     return 0;

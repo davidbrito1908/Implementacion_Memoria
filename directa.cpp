@@ -2,6 +2,7 @@
 
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 
@@ -45,7 +46,7 @@ int main(){
     string msg;
     inicializarMemoria();
 
-    cout << "dir" << "   " << "A/F" << "   " << "B0" << "   " << "B1" << "   " << "B2" << "   " << "B3" << "\n";
+    cout << setw(5) << "dir" << setw(5) << "A/F" << setw(5) << "B0" << setw(5) << "B1" << setw(5) << "B2" << setw(5) << "B3" << "\n";
     while(cin >> direccion){
         bloque = determinarBloque(direccion);
         estado = verificarBloque(bloque,direccion);
@@ -56,7 +57,7 @@ int main(){
         }else{
             msg = "A";
         }
-        cout << direccion << "   " << msg << "   " << memoriaDirecta[0][0] << "   " << memoriaDirecta[0][1] << "   " << memoriaDirecta[0][2] << "   " << memoriaDirecta[0][3] << "\n";
+        cout << setw(5) << direccion << setw(5) << msg << setw(5) << memoriaDirecta[0][0] << setw(5) << memoriaDirecta[0][1] << setw(5) << memoriaDirecta[0][2] << setw(5) << memoriaDirecta[0][3] << "\n";
     }
 
     return 0;

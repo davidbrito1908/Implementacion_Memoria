@@ -2,6 +2,7 @@
 
 
 #include <iostream>
+#include <iomanip>
 using namespace std;
 
 
@@ -90,7 +91,7 @@ int main(){
     inicializarMemoria();
     int elementos = bloques / conjuntos;
 
-    cout << "dir" << "   " << "A/F" << "   " << "C0" << "   " << "C1" << "   " << "C2" << "   " << "C3" << "\n";
+    cout << setw(5) << "dir" << setw(5) << "A/F" << setw(5) << "C0" << setw(5) << "C1" << setw(5) << "C2" << setw(5) << "C3" << "\n";
     while(cin >> direccion){
 
         conjunto = determinarConjunto(direccion);
@@ -101,7 +102,7 @@ int main(){
         }else{
             msg = "A";
         }
-        cout << direccion << "   " << msg << "   " << memoria[0][0] << "   " << memoria[0][1] << "   " << memoria[0][2] << "   " << memoria[0][3] << "\n";
+        cout << setw(5) << direccion << setw(5) << msg << setw(5) << memoria[0][0] << setw(5) << memoria[0][1] << setw(5) << memoria[0][2] << setw(5) << memoria[0][3] << "\n";
     }
 
     return 0;
