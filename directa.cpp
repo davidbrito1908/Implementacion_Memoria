@@ -45,15 +45,16 @@ int main(){
     string msg;
     inicializarMemoria();
 
+    cout << "dir" << "   " << "A/F" << "   " << "B0" << "   " << "B1" << "   " << "B2" << "   " << "B3" << "\n";
     while(cin >> direccion){
         bloque = determinarBloque(direccion);
         estado = verificarBloque(bloque,direccion);
 
         if (!estado) {
-            msg = "Fallo";
+            msg = "F";
             fallos++;
         }else{
-            msg = "Acierto";
+            msg = "A";
         }
         cout << direccion << "   " << msg << "   " << memoriaDirecta[0][0] << "   " << memoriaDirecta[0][1] << "   " << memoriaDirecta[0][2] << "   " << memoriaDirecta[0][3] << "\n";
     }

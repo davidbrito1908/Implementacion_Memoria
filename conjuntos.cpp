@@ -90,16 +90,16 @@ int main(){
     inicializarMemoria();
     int elementos = bloques / conjuntos;
 
-    // cout << "direccion" << "   " << "A/F" << "   " << "CONJUNTO 0" << "   " << "CONJUNTO 0" << "   " << "CONJUNTO 1" << "   " << "CONJUNTO 1" << "\n";
+    cout << "dir" << "   " << "A/F" << "   " << "C0" << "   " << "C1" << "   " << "C2" << "   " << "C3" << "\n";
     while(cin >> direccion){
 
         conjunto = determinarConjunto(direccion);
         estado = verificarConjunto(conjunto,direccion, &secuencia);
         if (!estado) {
-            msg = "Fallo";
+            msg = "F";
             fallos++;
         }else{
-            msg = "Acierto";
+            msg = "A";
         }
         cout << direccion << "   " << msg << "   " << memoria[0][0] << "   " << memoria[0][1] << "   " << memoria[0][2] << "   " << memoria[0][3] << "\n";
     }
