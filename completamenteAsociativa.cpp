@@ -83,19 +83,35 @@ int main(){
     int secuencia = 1;
     int fallos=0, i=0, direccion,estado;
     string msg;
+    string datos[palabras][bloques];
+
     inicializarMemoria();
 
-    cout << setw(5) << "dir" << setw(5) << "A/F" << setw(5) << "B0" << setw(5) << "B1" << setw(5) << "B2" << setw(5) << "B3" << "\n";
+    cout << setw(10) << "Direccion" << setw(18) << "Acierto/Fallo" << setw(15) << "Bloque 0" << setw(15) << "Bloque 1" << setw(15) << "Bloque 2" << setw(15) << "Bloque 3" << "\n";
+    cout << setfill('-') << setw(90) << "\n";
     while(cin >> direccion){
 
         estado = verificarMemoria(direccion, &secuencia);
+
+        //MENSAJE FALLO O ACIERTO
         if (!estado) {
-            msg = "F";
-            fallos++;
+            msg = "Fallo";
+            fallos++; //CONTAR FALLOS
         }else{
-            msg = "A";
+            msg = "Acierto";
         }
-        cout << setw(5) << direccion << setw(5) << msg << setw(5) << memoria[0][0] << setw(5) << memoria[0][1] << setw(5) << memoria[0][2] << setw(5) << memoria[0][3] << "\n";
+
+        //DATO A ESCRIBIR: MEMORIA[DATO] O '-' SI ESTA VACIO
+        for (i = 0; i < bloques; i++){
+            if (memoriaVisitados[0][i]>0){
+                datos[0][i]="Memoria[" + to_string(memoria[0][i]) + "]";
+            }else{
+                datos[0][i]="-";
+            }
+        }
+
+        // cout << setfill(' ') << setw(10) << direccion << setw(18) << msg << setw(15) << memoria[0][0] << setw(15) << memoria[0][1] << setw(15) << memoria[0][2] << setw(15) << memoria[0][3] << "\n";
+        cout << setfill(' ') << setw(10) << direccion << setw(18) << msg << setw(15) << datos[0][0] << setw(15) << datos[0][1] << setw(15) << datos[0][2] << setw(15) << datos[0][3] << "\n";
     }
 
     return 0;
