@@ -1,14 +1,13 @@
 /* DAVID BRITO 30521360    */
 /* ANDRES GUBAIRA 31006669 */
 
-
 #include <iostream>
 #include <iomanip>
 using namespace std;
 #define N 100
 
-class MemoriaCompletamenteAsociativa{
-    private:
+class Memoria{
+    protected:
         const static int bloques = 4;
         const static int palabras = 1;
 
@@ -16,15 +15,12 @@ class MemoriaCompletamenteAsociativa{
         int memoria[palabras][bloques];
         int memoriaVisitados[palabras][bloques];
 
-
         int getPalabras(){
             return this->palabras;
         }
         int getBloques(){
             return this->bloques;
         }
-
-
         void inicializarMemoria (){
             int i;
             for (i=0;i<this->bloques;i++){
@@ -47,6 +43,11 @@ class MemoriaCompletamenteAsociativa{
             }
             return acierto;
         }
+
+};
+
+class MemoriaCompletamenteAsociativa: public Memoria{
+    public:
 
         int buscarLRUMemoria(){
             int i, indiceMenor=0;
@@ -93,50 +94,17 @@ class MemoriaCompletamenteAsociativa{
 
 };
 
-class MemoriaAsociativaPorConjuntos{
+class MemoriaAsociativaPorConjuntos: public Memoria{
     private:
-        const static int bloques = 4;
-        const static int palabras = 1;
         int conjuntos = 2;
 
     public:
-        int memoria[palabras][bloques];
-        int memoriaVisitados[palabras][bloques];
-
-         int getPalabras(){
-            return this->palabras;
-        }
-        int getBloques(){
-            return this->bloques;
-        }
         int getConjuntos(){
             return this->conjuntos;
         }
 
-        void inicializarMemoria (){
-            int i;
-            for (i=0;i<this->getBloques();i++){
-                this-> memoria[0][i]= -1;
-                this-> memoriaVisitados[0][i]= 0;
-            }    
-        }
-
-        void escribirEnBloque(int bloque, int palabra, int direccion){
-            this-> memoria[palabra][bloque] = direccion;
-        }
         int determinarConjunto (int direccion){
             return direccion % this->getConjuntos();
-        }
-
-        int verificarBloque (int bloque, int direccion){
-            int acierto;
-
-            if (this-> memoria[0][bloque] == direccion){
-                acierto=1;
-            }else{
-                acierto=0;
-            }
-            return acierto;
         }
 
         int buscarLRU(int conjunto){
@@ -182,34 +150,11 @@ class MemoriaAsociativaPorConjuntos{
             return acierto;
         }
 
-
-
 };
 
-class MemoriaCorrespondenciaDirecta{
-    private:
-        const static int bloques = 4;
-        const static int palabras = 1;
+class MemoriaCorrespondenciaDirecta: public Memoria{
+
     public:
-        int memoriaDirecta[palabras][bloques];
-
-        int getPalabras(){
-            return this->palabras;
-        }
-        int getBloques(){
-            return this->bloques;
-        }
-
-        void inicializarMemoria (){
-            int i;
-            for (i=0;i<this-> getBloques();i++){
-                this-> memoriaDirecta[0][i]= -1;
-            }    
-        }
-
-        void escribirEnBloque(int bloque, int palabra, int direccion){
-            this-> memoriaDirecta[palabra][bloque] = direccion;
-        }
         int determinarBloque (int direccion){
             return direccion % this-> getBloques();
         }
@@ -217,7 +162,7 @@ class MemoriaCorrespondenciaDirecta{
         int verificarBloque (int bloque, int direccion){
             int acierto;
 
-            if (this-> memoriaDirecta[0][bloque] == direccion){
+            if (this-> memoria[0][bloque] == direccion){
                 acierto=1;
             }else{
                 acierto=0;
@@ -228,6 +173,10 @@ class MemoriaCorrespondenciaDirecta{
             return acierto;
         }
 };
+
+
+
+
 
 
 int main(){
@@ -296,8 +245,8 @@ int main(){
 
         //DATO A ESCRIBIR: MEMORIA[DATO] O '-' SI ESTA VACIO
         for (i = 0; i < memoria2.getBloques(); i++){
-            if (memoria2.memoriaDirecta[0][i]!=-1){
-                datos[0][i]="Memoria[" + to_string(memoria2.memoriaDirecta[0][i]) + "]";
+            if (memoria2.memoria[0][i]!=-1){
+                datos[0][i]="Memoria[" + to_string(memoria2.memoria[0][i]) + "]";
             }else{
                 datos[0][i]="-";
             }
