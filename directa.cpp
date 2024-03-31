@@ -3,52 +3,8 @@
 
 #include <iostream>
 #include <iomanip>
+#include "memorias.cpp"
 using namespace std;
-
-class MemoriaCorrespondenciaDirecta{
-    private:
-        const static int bloques = 4;
-        const static int palabras = 1;
-    public:
-        int memoriaDirecta[palabras][bloques];
-
-        int getPalabras(){
-            return this->palabras;
-        }
-        int getBloques(){
-            return this->bloques;
-        }
-
-        void inicializarMemoria (){
-            int i;
-            for (i=0;i<this-> getBloques();i++){
-                this-> memoriaDirecta[0][i]= -1;
-            }    
-        }
-
-        void escribirEnBloque(int bloque, int palabra, int direccion){
-            this-> memoriaDirecta[palabra][bloque] = direccion;
-        }
-        int determinarBloque (int direccion){
-            return direccion % this-> getBloques();
-        }
-
-        int verificarBloque (int bloque, int direccion){
-            int acierto;
-
-            if (this-> memoriaDirecta[0][bloque] == direccion){
-                acierto=1;
-            }else{
-                acierto=0;
-            }
-
-            this-> escribirEnBloque(bloque,0,direccion);
-
-            return acierto;
-        }
-};
-
-
 
 int main(){
     int fallos=0, i, direccion,bloque, estado;
@@ -74,8 +30,8 @@ int main(){
 
         //DATO A ESCRIBIR: MEMORIA[DATO] O '-' SI ESTA VACIO
         for (i = 0; i < memoria.getBloques(); i++){
-            if (memoria.memoriaDirecta[0][i]!=-1){
-                datos[0][i]="Memoria[" + to_string(memoria.memoriaDirecta[0][i]) + "]";
+            if (memoria.memoria[0][i]!=-1){
+                datos[0][i]="Memoria[" + to_string(memoria.memoria[0][i]) + "]";
             }else{
                 datos[0][i]="-";
             }
