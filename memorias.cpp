@@ -29,12 +29,15 @@ class Memoria{
         }
 
         int verificarBloque (int bloque, int direccion){
-            int acierto;
+            int acierto=0,i=0;
+            while(!acierto && i<this->palabras){
+                if (this->memoria[i][bloque] == direccion){
+                    acierto=1;
+                }else{
+                    acierto=0;
+                }
+                i++;
 
-            if (this->memoria[0][bloque] == direccion){
-                acierto=1;
-            }else{
-                acierto=0;
             }
             return acierto;
         }
@@ -46,7 +49,7 @@ class MemoriaCompletamenteAsociativa: public Memoria{
 
         int buscarLRUMemoria(){
             int i, indiceMenor=0;
-            int menor = 500;
+            int menor = 999999;
 
             for (i=0;i< this->getBloques(); i++){
                 if (this-> memoriaVisitados[0][i] < menor){
