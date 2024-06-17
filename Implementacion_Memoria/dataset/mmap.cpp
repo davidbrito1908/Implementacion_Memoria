@@ -41,7 +41,7 @@ string datas[MAX_ROWS][MAX_COLS];
 
 int main(){
     int secuencia = 1;
-    int dimension=0,estado,n;
+    int dimension=0,estado;
 
 
     // ---------NUEVO------------
@@ -52,6 +52,8 @@ int main(){
     //const char archivo = "fer2013.csv";
 
     //file_name = &archivo;
+    unsigned t0,  t1;
+    t0=clock();
 
 //if( -1 == (fd = open(file_name, O_RDWR))) /* open file in read/write mode*/
     if( -1 == (fd = open("fer2013.csv", O_RDWR))) /* open file in read/write mode*/
@@ -71,43 +73,16 @@ int main(){
 
     //printf("\nfile contents before:\n%s \n", addr); /* write current file contents */
   
-    for(size_t i = 0; i < file_st.st_size; i++) /* replace characters  */
-    {
+    //for(size_t i = 0; i < file_st.st_size; i++) /* replace characters  */
+    /*{
         if (addr[i] == seekchar) 
        (    addr[i] = newchar) ;
-    } 
+    }
+    */
      
-    //printf("\nfile contents after:\n%s \n", addr); /* write file contents after modification */
-    /*ifstream file("fer2013.csv");
-    if (!file.is_open()) {
-        cerr << "Error" << endl;
-        return 1;
-    }
-
-
-    string line;
-    int row = 0;
-
-    while (getline(file, line) && row < MAX_ROWS) {
-        stringstream ss(line);
-        string cell;
-        int col = 0;
-        while (getline(ss, cell, ',') && col < MAX_COLS) {
-            datas[row][col] = cell;
-            col++;
-        }
-        row++;
-        dimension++;
-    }
-    file.close();*/
+ 
     int row=0;
 
-    /*for (int i = 1; i < row; i++) {
-        imagen act;
-        act.construir(stoi(datas[i][0]), (datas[i][1]), datas[i][2]);
-        imagenes[i]=act;
-
-    }*/
     MemoriaCompletamenteAsociativa memoria;
     string datos[memoria.getPalabras()][memoria.getBloques()];
 
@@ -117,42 +92,44 @@ int main(){
     //cout << setfill('-') << setw(90) << "\n";
     
 
-    n=0;
+
     string msg;
-    int fallos=0,i;
-    while(n < file_st.st_size){
-        estado = memoria.verificarMemoria(addr[n], &secuencia);
-        //MENSAJE FALLO O ACIERTO
-        if (!estado) {
-            msg = "Fallo";
-            fallos++; //CONTAR FALLOS
-        }else{
-            msg = "Acierto";
-        }
-
-        //PREBUSQUEDA DEL SIGUIENTE ELEMENTO
-        if(n<file_st.st_size-1 && !estado){
-            estado = memoria.verificarMemoria(addr[n+1], &secuencia);
-        }
-
-        //DATO A ESCRIBIR: MEMORIA[DATO] O '-' SI ESTA VACIO
-        /*for (i = 0; i < memoria.getBloques(); i++){
-            if (memoria.memoriaVisitados[0][i]>0){
-                datos[0][i]="Memoria[" + to_string(memoria.memoria[0][i]) + "]";
-            }else{
-                datos[0][i]="-";
-            }
-        }*/
-        //cout << setfill(' ') << setw(10) << imagenes[n].getEmocion() << setw(18) << msg << setw(15) << datos[0][0] << setw(15) << datos[0][1] << setw(15) << datos[0][2] << setw(15) << datos[0][3] << "\n";
+    long fallos=0,elementos=0,n=0;
+    int band=0;
+    while(!band && n<file_st.st_size){
+        band= addr[n] == '\n';
         n++;
     }
+    while(n < file_st.st_size){
+        if ((addr[n] != ',') && (addr[n] != '\n')){
+            estado = memoria.procesar(addr[n], &secuencia);
+            //MENSAJE FALLO O ACIERTO
+            if (!estado) {
+                msg = "Fallo";
+                fallos++; //CONTAR FALLOS
+            }else{
+                msg = "Acierto";
+            }
 
+            //PREBUSQUEDA DEL SIGUIENTE ELEMENTO
+            if(n<file_st.st_size-1 && !estado){
+                estado = memoria.procesar(addr[n+1], &secuencia);
+            }
+            elementos++;
+        }
+        n++;
+    }
+    cout << "n =====" << n << endl;
+    double porcentaje = 100 -((fallos *100) / elementos);
     cout << "Fallos:" << fallos << endl;
-    cout << "Cantidad de elementos:" << file_st.st_size << endl;
-    cout << "Porcentaje de aciertos es de:" << ((file_st.st_size-fallos)*100) / file_st.st_size << "%";
+    cout << "Cantidad de elementos:" << elementos << endl;
+    cout << "Porcentaje de aciertos es de:" << porcentaje << "%";
 
 
-
+    t1 = clock();
+    
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout << "Execution Time: " << time << endl;
 
 
 

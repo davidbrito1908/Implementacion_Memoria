@@ -4,7 +4,7 @@ using namespace std;
 
 class Memoria{
     protected:
-        const static int bloques = 4;
+        const static int bloques = 8;
         const static int palabras = 1;
 
     public:
@@ -17,6 +17,7 @@ class Memoria{
         int getBloques(){
             return this->bloques;
         }
+
         void inicializarMemoria (){
             int i;
             for (i=0;i<this->bloques;i++){
@@ -56,7 +57,7 @@ class Memoria{
 class MemoriaCompletamenteAsociativa: public Memoria{
     public:
 
-        /*int buscarLRUMemoria(){
+        int buscarLRUMemoria(){
             int i, indiceMenor=0;
             int menor = 999999;
 
@@ -97,7 +98,7 @@ class MemoriaCompletamenteAsociativa: public Memoria{
             *secuencia = *secuencia + 1;
 
             return acierto;
-        }*/
+        }
         void descomponerBinario(int dato, int* etiqueta, int *palabra){
             //int offsetBloques= log2(this->getBloques());
             int offsetPalabras = log2(this->getPalabras());
@@ -168,7 +169,7 @@ class MemoriaAsociativaPorConjuntos: public Memoria{
             this->conjuntos = cantidad;
         }
 
-        /*int determinarConjunto (int direccion){
+        int determinarConjunto (int direccion){
             return direccion % this->getConjuntos();
         }
 
@@ -213,7 +214,7 @@ class MemoriaAsociativaPorConjuntos: public Memoria{
             *secuencia = *secuencia + 1;
 
             return acierto;
-        }*/
+        }
 
 
         void descomponerBinario(int dato, int* etiqueta, int *conjunto, int *palabra){
@@ -274,9 +275,9 @@ class MemoriaAsociativaPorConjuntos: public Memoria{
 class MemoriaCorrespondenciaDirecta: public Memoria{
 
     public:
-        /*int determinarBloque (int direccion){
+        int determinarBloque (int direccion){
             return direccion % this-> getBloques();
-        }*/
+        }
         int procesar(int dato){
             int etiqueta,bloque,palabra, acierto;
             this->descomponerBinario(dato, &etiqueta, &bloque, &palabra);
@@ -290,7 +291,7 @@ class MemoriaCorrespondenciaDirecta: public Memoria{
             return acierto;
         }
 
-        /*int verificarBloque (int bloque, int direccion){
+        int verificarBloque (int bloque, int direccion){
             int acierto;
 
             if (this-> memoria[0][bloque] == direccion){
@@ -302,6 +303,6 @@ class MemoriaCorrespondenciaDirecta: public Memoria{
             this-> escribirEnBloque(bloque,0,direccion);
 
             return acierto;
-        }*/
+        }
 };
 
