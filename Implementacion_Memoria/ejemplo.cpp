@@ -36,7 +36,7 @@ int main(){
     cout << setw(10) << "Direccion" << setw(18) << "Acierto/Fallo" << setw(15) << "Bloque 0" << setw(15) << "Bloque 1" << setw(15) << "Bloque 2" << setw(15) << "Bloque 3" << "\n";
     cout << setfill('-') << setw(90) << "\n";
     while(j < dimension){
-        estado = memoria1.verificarMemoria(datosMemoria[j], &secuencia);
+        estado = memoria1.procesar(datosMemoria[j], &secuencia);
         //MENSAJE FALLO O ACIERTO
         if (!estado) {
             msg = "Fallo";
@@ -62,8 +62,8 @@ int main(){
     cout << setw(10) << "Direccion" << setw(18) << "Acierto/Fallo" << setw(15) << "Bloque 0" << setw(15) << "Bloque 1" << setw(15) << "Bloque 2" << setw(15) << "Bloque 3" << "\n";
     cout << setfill('-') << setw(90) << "\n";
     while(j < dimension){
-        bloque = memoria2.determinarBloque(datosMemoria[j]);
-        estado = memoria2.verificarBloque(bloque,datosMemoria[j]);
+        estado = memoria2.procesar(datosMemoria[j]);
+        //estado = memoria2.verificarBloque(bloque,datosMemoria[j]);
 
         //MENSAJE FALLO O ACIERTO
         if (!estado) {
@@ -92,8 +92,8 @@ int main(){
     cout << setfill('-') << setw(90) << "\n";
     while(j < dimension){
 
-        conjunto = memoria3.determinarConjunto(datosMemoria[j]);
-        estado = memoria3.verificarConjunto(conjunto,datosMemoria[j], &secuencia);
+        //conjunto = memoria3.determinarConjunto(datosMemoria[j]);
+        estado = memoria3.procesar(datosMemoria[j], &secuencia);
 
         //MENSAJE FALLO O ACIERTO
         if (!estado) {
