@@ -32,7 +32,7 @@ int main(){
   
     fstat(fd, &file_st); /* Load file status */
     
-    addr = (char *)mmap(NULL,file_st.st_size, PROT_WRITE, MAP_SHARED, fd, 0); /* map file  */ //LECTURA CON MMAP
+    addr = (char *)mmap(NULL,file_st.st_size, PROT_READ, MAP_SHARED, fd, 0); /* map file  */ //LECTURA CON MMAP
     if(addr == MAP_FAILED) /* check mapping successful */
     {
         perror("Error  mapping \n");
@@ -52,34 +52,27 @@ int main(){
     int coma=0;
     //MIENTRAS NO SE LLEGUE AL TAMAÑO DEL ARCHIVO SE LEE EL CARACTER
     while(n < file_st.st_size){
-        if (addr[n] == ','){
-            //cout<<"HOla";
-            coma++;
-        }
-
         if ((addr[n] != ',') && (addr[n] != '\n')){
             estado = memoria.procesar(addr[n], &secuencia); //PARA MEMORIA ASOCIATIVA Y POR CONJUNTOS
             //estado = memoria.procesar(addr[n]);           //PARA CORRESPONDENCIA DIRECTA
             
             //SUMAR FALLO O ACIERTO
             if (!estado) {
-                //msg = "Fallo";
                 fallos++; //CONTAR FALLOS
-            }else{
-                //msg = "Acierto";
-            }
 
-            //PREBUSQUEDA DEL SIGUIENTE ELEMENTO (SI EL ELEMENTO ACTUAL PROVOCÓ UN FALLO)
-            if(n<file_st.st_size-1 && !estado){
-                estado = memoria.procesar(addr[n+1], &secuencia); //ASOCIATIVA Y POR CONJUNTOS
-                //estado = memoria.procesar(addr[n+1]); //CORRESPONDENCIA DIRECTA
+                //PREBUSQUEDA DEL SIGUIENTE ELEMENTO (SI EL ELEMENTO ACTUAL PROVOCÓ UN FALLO)
+                if(n < file_st.st_size-1){
+                    if (addr[n+1] != ',' && addr[n+1]!='\n'){
+                        estado = memoria.procesar(addr[n+1], &secuencia); //ASOCIATIVA Y POR CONJUNTOS
+                        //estado = memoria.procesar(addr[n+1]); //CORRESPONDENCIA DIRECTA
+                    }           
+                }
             }
             elementos++; //NUMERO DE ELEMENTOS PROCESADOS
         }
         n++; //NUMERO TOTAL DE CARACTERES
     }
     //cout << "n =" << n << endl;
-    cout << "comas"<<coma<<endl;
     double porcentaje = 100 -((fallos *100) / elementos); //PORCENTAJE DE ACIERTOS
     cout << "Fallos:" << fallos << endl; //CANTIDAD DE FALLOS
     cout << "Cantidad de elementos:" << elementos << endl; //CANTIDAD DE ELEMENTOS PROCESADOS

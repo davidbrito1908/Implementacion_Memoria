@@ -20,40 +20,45 @@ int main(){
     memoria.inicializarMemoria();
     
     long n=0;
-    //string msg;
-    long fallos=0,i;
-    string linea;
+    long fallos=0;
+    char linea;
 
     unsigned t0,  t1;
     t0=clock();
-    //cin>>linea; //LEER PRIMERA LINEA
-    //LEER EL DATASET LINEA A LINEA
-    while(cin>>linea){
-        int tam = linea.size();
-        //RECORRER LA LINEA CARACTER A CARACTER
-        for(i=0;i<tam;i++){
-            if ((linea[i] != ',') && (linea[i]!= '\n')){
+    //LEER EL DATASET CARACTER A CARACTER
+    linea=cin.get();
+    estado = memoria.procesar(linea, &secuencia); //ASOCIATIVA O POR CONJUNTOS
+    //estado = memoria.procesar(linea); //CORRESPONDENCIA DIRECTA
+    if(!estado){
+        //PREBUSQUEDA DEL SIGUIENTE ELEMENTO (SI EL ACTUAL ES UN FALLO)
+        linea=cin.get();
+        if (linea != ',' && linea != '\n'){
+            estado = memoria.procesar(linea, &secuencia); //ASOCIATIVA O POR CONJUNTOS
+            //estado = memoria.procesar(linea); //CORRESPONDENCIA DIRECTA
+        }
 
-                estado = memoria.procesar(linea[i], &secuencia); //ASOCIATIVA O POR CONJUNTOS
-                //estado = memoria.procesar(linea[i]); //CORRESPONDENCIA DIRECTA
-                //SUMAR FALLO
-                if (!estado) {
-                    //msg = "Fallo";
-                    fallos++; //CONTAR FALLOS
-                }else{
-                    //msg = "Acierto";
-                }
+    }
+    while(linea!=EOF){
 
+        linea = cin.get();
+        if (linea != '\n' && linea != ','){
+            estado = memoria.procesar(linea, &secuencia); //ASOCIATIVA O POR CONJUNTOS
+            //estado = memoria.procesar(linea); //CORRESPONDENCIA DIRECTA
+            if (!estado) {
+                fallos++; //CONTAR FALLOS
+                
                 //PREBUSQUEDA DEL SIGUIENTE ELEMENTO (SI EL ACTUAL ES UN FALLO)
-                if(i<tam-1 &!estado){
-                    estado = memoria.procesar(linea[i+1], &secuencia);
-                } 
-                n++; //CONTAR ELEMENTOS PROCESADOS
+                linea=cin.get();
+                if (linea != ',' && linea != '\n'){
+                    n++;
+                    estado = memoria.procesar(linea, &secuencia); //ASOCIATIVA O POR CONJUNTOS
+                    //estado = memoria.procesar(linea); //CORRESPONDENCIA DIRECTA
+                }
             }
+            n++; //CONTAR ELEMENTOS PROCESADOS        
         }
     }
-
-    double porcentaje =100 -((fallos *100) / n); //PORCENTAHE DE ACIERTOS
+    double porcentaje = 100 -((fallos *100) / n); //PORCENTAJE DE ACIERTOS
     cout << "Fallos:" << fallos << endl; //NUMERO DE FALLOS
     cout << "Cantidad de elementos:" << n << endl; //NUMERO DE ELEMENTOS PROCESADOS
     cout << "Porcentaje de aciertos es de:" << porcentaje << "%"<<endl;
