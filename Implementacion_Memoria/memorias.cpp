@@ -4,7 +4,7 @@ using namespace std;
 
 class Memoria{
     protected:
-        const static int bloques = 8;
+        const static int bloques = 4;
         const static int palabras = 1;
 
 
