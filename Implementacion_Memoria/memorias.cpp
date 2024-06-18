@@ -7,6 +7,7 @@ class Memoria{
         const static int bloques = 4;
         const static int palabras = 1;
 
+
     public:
         int memoria[palabras][bloques];
         int memoriaVisitados[palabras][bloques];
