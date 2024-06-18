@@ -4,7 +4,7 @@ David Brito 30.521.360
 Andrés Gubaira 31.006.669
 
 
-La parte 1 se encuentra en los programas realizados en la raiz del repositorio:
+La PARTE 1 se encuentra en los programas realizados en la raiz del repositorio:
 
     -memorias.cpp: Es el archivo donde se crean e implementan las clases de los distintos tipos de memeoria (Correspondencia Directa, Asociativa por conjuntos y completamente asociativa).
     
@@ -16,7 +16,9 @@ La parte 1 se encuentra en los programas realizados en la raiz del repositorio:
     
     -ejemplo.cpp: Junta los 3 programas anteriores para poder comparar facilmente con el ejemplo del libro el comportamiento de cada tipo de memoria. (También necesita de entrada estándar)
 
-La parte 2 se encuentra dentro de la carpeta dataset, alli se encuentra:
+
+
+La PARTE 2 se encuentra dentro de la carpeta dataset, alli se encuentra:
 
     -data.zip : El comprimido del dataset, al descomprimirlo se obtiene el archivo fer2013.csv, el cual es el dataset utilizado.
     
