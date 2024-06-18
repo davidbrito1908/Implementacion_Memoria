@@ -4,7 +4,7 @@ using namespace std;
 
 class Memoria{
     protected:
-        const static int bloques = 4;
+        const static int bloques = 8;
         const static int palabras = 1;
 
 
@@ -18,6 +18,7 @@ class Memoria{
         int getBloques(){
             return this->bloques;
         }
+
         void inicializarMemoria (){
             int i;
             for (i=0;i<this->bloques;i++){
