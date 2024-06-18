@@ -158,7 +158,8 @@ class MemoriaCompletamenteAsociativa: public Memoria{
 
 class MemoriaAsociativaPorConjuntos: public Memoria{
     private:
-        int conjuntos = 2;
+        int vias = 2;
+        int conjuntos = this->bloques / this->vias;
 
     public:
         int getConjuntos(){
