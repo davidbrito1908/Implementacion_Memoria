@@ -30,17 +30,15 @@ class Memoria{
             this->memoria[palabra][bloque] = etiqueta;
         }
 
-        int verificarBloque (int bloque, int etiqueta){
-            int acierto=0,i=0;
-            while(!acierto && i<this->palabras){
-                if (this->memoria[i][bloque] == etiqueta){
-                    acierto=1;
-                }else{
-                    acierto=0;
-                }
-                i++;
+        int verificarBloque (int bloque, int etiqueta, int palabra){
+            int acierto=0;
 
+            if (this->memoria[palabra][bloque] == etiqueta){
+                acierto=1;
+            }else{
+                acierto=0;
             }
+
             return acierto;
         }
 
@@ -72,7 +70,7 @@ class MemoriaCompletamenteAsociativa: public Memoria{
             i=0;
             while ( i< bloques && !band){
                 if(this->memoriaVisitados[palabra][i] > 0){
-                    if(this->verificarBloque(i, etiqueta)){
+                    if(this->verificarBloque(i, etiqueta, palabra)){
                         band=1;
                         acierto=1;
                         this-> memoriaVisitados[palabra][i] = *secuencia;
@@ -140,7 +138,7 @@ class MemoriaAsociativaPorConjuntos: public Memoria{
             i=0;
             while ( i< bloques && !band){
                 if(this->memoriaVisitados[palabra][bloques * conjunto + i] > 0){
-                    if(this->verificarBloque(bloques * conjunto + i, etiqueta)){
+                    if(this->verificarBloque(bloques * conjunto + i, etiqueta,palabra)){
                         band=1;
                         acierto=1;
                         this-> memoriaVisitados[palabra][bloques * conjunto + i] = *secuencia;
