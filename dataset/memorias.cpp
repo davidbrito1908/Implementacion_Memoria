@@ -35,8 +35,6 @@ class Memoria{
 
             if (this->memoria[palabra][bloque] == etiqueta){
                 acierto=1;
-            }else{
-                acierto=0;
             }
 
             return acierto;
